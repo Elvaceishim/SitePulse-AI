@@ -30,6 +30,44 @@ SitePulse AI is a practical exploration of that question.
 
 ![PDF Briefing](docs/images/pdf-briefing.png)
 
+## Architecture
+
+SitePulse AI separates deterministic risk processing from AI-assisted briefing generation. The backend processes risk assessments, prioritises them using Python rules, generates intervention recommendations and produces structured briefings with an LLM.
+
+The supervisor review workflow records human decisions independently of the AI-generated content.
+
+```mermaid
+flowchart TD
+    A["Synthetic Risk Data Provider"] --> B["Risk Assessments"]
+
+    B --> C["Python Prioritisation Engine"]
+    C --> D["Intervention Engine"]
+
+    D --> E["AI Briefing Generator"]
+    E --> F["OpenRouter LLM"]
+
+    F --> G["Briefing Reference Validation"]
+    G --> H["FastAPI Backend"]
+
+    H --> I["React Dashboard"]
+
+    I --> J["Supervisor Review"]
+    J --> K[("SQLite Review Store")]
+
+    I --> L["PDF Report Export"]
+```
+
+### Main components
+
+- **Synthetic data provider:** Supplies demonstration sites and risk assessments.
+- **Prioritisation engine:** Calculates priority bands using deterministic Python rules.
+- **Intervention engine:** Generates category- and industry-aware recommended actions.
+- **AI briefing generator:** Produces evidence-grounded site summaries and priority explanations.
+- **FastAPI backend:** Exposes the application endpoints.
+- **React dashboard:** Presents risk intelligence and intervention workflows.
+- **Supervisor review store:** Persists review decisions in SQLite.
+- **PDF export:** Generates a downloadable risk intelligence report.
+
 ## What the prototype demonstrates
 
 ### 1. Multi-site risk overview
