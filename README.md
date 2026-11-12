@@ -18,6 +18,18 @@ I wanted to explore an additional engineering question:
 
 SitePulse AI is a practical exploration of that question.
 
+### Risk Overview Dashboard
+
+![SitePulse AI Dashboard](docs/images/dashboard.png)
+
+### Site Intelligence and Supervisor Review
+
+![Site Details](docs/images/site-details.png)
+
+### Exported Risk Intelligence Report
+
+![PDF Briefing](docs/images/pdf-briefing.png)
+
 ## What the prototype demonstrates
 
 ### 1. Multi-site risk overview
