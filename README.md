@@ -37,24 +37,41 @@ SitePulse AI separates deterministic risk processing from AI-assisted briefing g
 The supervisor review workflow records human decisions independently of the AI-generated content.
 
 ```mermaid
-flowchart TD
-    A["Synthetic Risk Data Provider"] --> B["Risk Assessments"]
+flowchart LR
+    subgraph DATA["Data Layer"]
+        A["Synthetic Risk Provider"]
+        B["Risk Assessments"]
+        A --> B
+    end
 
-    B --> C["Python Prioritisation Engine"]
-    C --> D["Intervention Engine"]
+    subgraph BACKEND["Python / FastAPI Backend"]
+        C["Prioritisation Engine"]
+        D["Intervention Engine"]
+        E["AI Briefing Generator"]
+        F["OpenRouter LLM"]
+        G["Reference Validation"]
 
-    D --> E["AI Briefing Generator"]
-    E --> F["OpenRouter LLM"]
+        C --> D
+        D --> E
+        E <--> F
+        E --> G
+    end
 
-    F --> G["Briefing Reference Validation"]
-    G --> H["FastAPI Backend"]
+    subgraph FRONTEND["React Frontend"]
+        H["Risk Dashboard"]
+        I["Supervisor Review"]
+        J["PDF Export"]
+    end
 
-    H --> I["React Dashboard"]
+    subgraph STORAGE["Persistence"]
+        K[("SQLite Review Store")]
+    end
 
-    I --> J["Supervisor Review"]
-    J --> K[("SQLite Review Store")]
-
-    I --> L["PDF Report Export"]
+    B --> C
+    G --> H
+    H --> I
+    H --> J
+    I <--> K
 ```
 
 ### Main components
